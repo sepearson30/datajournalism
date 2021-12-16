@@ -87,10 +87,10 @@ movies %>%
 
 ### Boxplots
 
-```{r}
+```{r boxplot} 
 labs_box <- labs(
      title = "[Variable X] by [Variable Y]",
-     subtitle = "source: [link to data]",
+     subtitle = "source: https://github.com/hadley/data-movies",
      fill = "[Variable Y]",
      x = "[Variable X]",
      y = "[Variable Y]")
