@@ -1,0 +1,80 @@
+---
+title: "s-pearson-final-project"
+author: "Sophia Pearson"
+date: "12/10/2021"
+output: html_document
+ 
+   
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(tidyverse)
+library(janitor)
+library(rmarkdown)
+base::options(
+  tibble.print_max = 25,
+  tibble.width = 78,
+  scipen = 100000000,
+  max.print = 999999
+)
+knitr::opts_chunk$set(
+  echo = TRUE, # show/hide all code
+  # results = "hide", # hide/show results
+  tidy = FALSE, # cleaner code printing
+  comment = "#", # better console printing
+  eval = TRUE, # turn this to FALSE stop code chunks from running
+  message = TRUE, # show messages
+  fig.width = 7, # figure width
+  fig.height = 5, # figure height
+  warning = FALSE, # show warnings
+  size = "small", # size of the text
+  fig.path = "img/" # location of figures
+)
+knitr::opts_knit$set(
+  width = 78
+)
+```
+```{r}
+movies <- readr::read_csv(file = "data/raw/imdb-movies.csv")
+```
+```{r}
+skimr::skim(movies)
+```
+```{r}
+labs_hist <- labs(title = "Histogram of [ ]", 
+                  x = "[Variable Name with units]")
+movies %>% 
+  ggplot(aes(x = critics_score)) + 
+    geom_histogram() + 
+      labs_hist
+```
+```{r}
+labs_freq <- labs(title = "Frequency polygon of [ ]", 
+                  x = "[Variable Names with units]")
+movies %>% 
+  ggplot(aes(x = critics_score)) + 
+    geom_freqpoly() + 
+      labs_freq
+```
+```{r}
+labs_box <- labs(
+     title = "[Variable X] by [Variable Y]",
+     subtitle = "source: [link to data]",
+     fill = "[Variable Y]",
+     x = "[Variable X]",
+     y = "[Variable Y]")
+movies %>%  
+  filter(!is.na(genre)) %>% 
+  ggplot() + 
+  geom_boxplot(aes(x = critics_score, 
+                      y = genre, 
+                      fill = genre),
+                      alpha = 1/5, 
+               show.legend = FALSE) + 
+  labs_box
+```
+
+
+
+
