@@ -1,0 +1,108 @@
+---
+title: "eda-project"
+author: "Sophia Pearson"
+date: "11/15/2021"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(skimr)
+library(dplyr)
+```
+
+```{r}
+movies <- readr::read_csv(file = "data/raw/imdb-movies.csv")
+```
+
+```{r}
+ncol(movies)
+```
+```{r}
+length(movies)
+```
+```{r}
+nrow(movies)
+```
+```{r}
+dim(movies)
+```
+```{r}
+names(movies)
+```
+```{r}
+colnames(movies)
+```
+```{r}
+str(movies)
+```
+```{r}
+glimpse(movies)
+```
+
+```{r}
+fs::dir_create("data/raw/")
+out_path <- paste0("data/raw/", noquote(lubridate::today()), "-imdb-movies.csv")
+write_csv(x = movies, file = out_path)
+fs::dir_tree("data/raw/")
+```
+```{r}
+library(janitor)
+movies <- movies %>% janitor::clean_names()
+glimpse(movies)
+```
+```{r}
+skimr::skim(movies)
+```
+```{r}
+labs_hist <- labs(title = "Histogram of movies$critics_score", 
+                  x = "Critics Score")
+movies %>% 
+  ggplot(aes(x = critics_score)) + 
+    geom_histogram() + 
+      labs_hist
+```
+```{r}
+labs_freq <- labs(title = "Histogram of movies$critics_score", 
+                  x = "Critics Score")
+movies %>% 
+  ggplot(aes(x = critics_score)) + 
+    geom_freqpoly() + 
+      labs_freq
+```
+```{r}
+labs_box2 <- labs(
+     title = "Critics Score by Genre",
+     subtitle = "source: imdb-movies.csv",
+     fill = "Genre",
+     x = "Critics Score",
+     y = "Genre")
+movies %>%  
+  filter(!is.na(genre)) %>% 
+  ggplot() + 
+  geom_boxplot(aes(x = critics_score, 
+                      y = genre, 
+                      fill = genre),
+                      alpha = 1/5, 
+               show.legend = FALSE) + 
+  labs_box2
+```
+```{r}
+labs_freq2 <- labs(
+     title = "Critics score by Genre",
+     subtitle = "source: imdb-movies.csv",
+     fill = "Genre",
+     x = "Critics Score",
+     y = "Genre")
+movies %>% 
+  # remove missing states
+  filter(!is.na(genre)) %>% 
+  ggplot(aes(x = critics_score, group = genre)) + 
+    geom_freqpoly(aes(color = genre), 
+                  show.legend = FALSE) + 
+    facet_wrap(~ genre) + 
+    labs_freq2
+```
+
+
