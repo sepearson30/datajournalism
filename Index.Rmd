@@ -2,9 +2,17 @@
 title: "s-pearson-final-project"
 author: "Sophia Pearson"
 date: "12/10/2021"
-output: html_document
- 
-   
+output:
+  html_document:
+    highlight: kate
+    code_folding: show
+    theme: cosmo
+    df_print: paged
+    toc: true
+    toc_depth: 6
+    toc_float:
+      collapsed: true
+      smooth_scroll: false
 ---
 
 ```{r setup, include=FALSE}
@@ -35,12 +43,22 @@ knitr::opts_knit$set(
   width = 78
 )
 ```
+
+## Import
+
 ```{r}
 movies <- readr::read_csv(file = "data/raw/imdb-movies.csv")
 ```
+
+## Summary Statistics
+
 ```{r}
 skimr::skim(movies)
 ```
+## Single Variable Graphs
+
+### Histogram
+
 ```{r}
 labs_hist <- labs(title = "Histogram of [ ]", 
                   x = "[Variable Name with units]")
@@ -49,6 +67,10 @@ movies %>%
     geom_histogram() + 
       labs_hist
 ```
+
+
+### Frequency Polygon
+
 ```{r}
 labs_freq <- labs(title = "Frequency polygon of [ ]", 
                   x = "[Variable Names with units]")
@@ -57,6 +79,14 @@ movies %>%
     geom_freqpoly() + 
       labs_freq
 ```
+
+
+
+## Multiple Variable Graphs
+
+
+### Boxplots
+
 ```{r}
 labs_box <- labs(
      title = "[Variable X] by [Variable Y]",
