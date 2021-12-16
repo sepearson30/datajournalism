@@ -21,18 +21,21 @@ knitr::opts_chunk$set(
 The goal of [Your Project] is to ...
 
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+## Github steps
 
-```{r cars}
-summary(cars)
-```
+1. Make changes
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. 
+2. Save changes
 
-You can also embed plots, for example:
+  - Move `Index.html` from `eda_project/` to `eda_project/docs/` (remove previous `Index.html`
 
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
+3. In Git pane, click on changed files (Mark as “Staged”)
 
+4. Click on ‘Commit’ icon
 
+5. In commit dialogue box, enter message
+
+6. Click ‘Commit’ (After changes have been committed, close
+commit box)
+
+7. Click on “Push” icon (green up arrow) to push changes to GitHub
